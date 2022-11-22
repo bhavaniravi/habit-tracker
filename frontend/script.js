@@ -3,22 +3,31 @@
 const daysTag = document.querySelector(".day-grid"),
 currentDate = document.querySelector(".current-date"),
 prevNextIcon = document.querySelectorAll("#prev, #next");
+habits = document.querySelectorAll(".habits > li");
 
 let date = new Date(),
 currYear = date.getFullYear(),
 currMonth = date.getMonth();
 
 
+const colors = ["#89cff0", "#99c5c4", "#bdb0d0", "#ffb7ce", "#bee7a5"]
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+let currColor = 0
+
+header = document.getElementById('header')
+header.style = `background-color: ${colors[currColor]}`
 
 var setMarked = function(e) {
-    if (e.target.classList.contains("clicked")) 
-        e.target.classList.remove("clicked");
-    else (e.target.classList.add("clicked"));
+    e.target.style.backgroundColor = colors[currColor]
 };
+
+// var pickRandom = function(arr) {
+//     return arr[Math.floor(Math.random() * arr.length)];
+// }
 
 const renderCalendar = () => {
     lastDateofMonth = new Date(currYear, currMonth+1, 0).getDate(); // getting last date of month
+    console.log(new Date(currYear, currMonth+1, 0))
     daysTag.innerHTML = '';
     for (let i = 0; i < lastDateofMonth; i++) { 
         let style = "";
@@ -58,3 +67,15 @@ prevNextIcon.forEach(icon => { // getting prev and next icons
 });
 
 renderCalendar();
+
+habits.forEach((item, index) => {
+    item.style = `background-color: ${colors[index]}`
+    item.onclick = () => {
+        header = document.getElementById('header')
+        header.style.backgroundColor = colors[index]
+        currColor = index
+        document.querySelectorAll(".dayTile").forEach((item) => {
+            item.style.backgroundColor = ''
+        })
+    }
+})
