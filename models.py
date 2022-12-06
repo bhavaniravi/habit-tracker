@@ -1,9 +1,11 @@
 from flask_sqlalchemy import Model, SQLAlchemy
 from flask import Flask
 from datetime import datetime
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/test.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.env["SQLALCHEMY_DATABASE_URI"]
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
