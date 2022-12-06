@@ -15,7 +15,6 @@ def index():
 def list_habit():
     habits = db.session.execute(db.select(Habit)).scalars()
     response = [serialize(habit) for habit in habits]
-    print(response)
     return {"data": response, "status": "success"}
 
 

@@ -12,7 +12,6 @@ db = SQLAlchemy(app)
 
 
 def serialize(object):
-    print(object.__dict__)
     dict_obj = object.__dict__.copy()
     dict_obj.pop("_sa_instance_state", None)
     return dict_obj
@@ -41,14 +40,14 @@ class Log(db.Model):
     user = db.Column(
         db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"), nullable=False
     )
-    timestamp = db.Column(db.DateTime, nullable=False, unique=True)
+    timestamp = db.Column(db.DateTime, nullable=False)
     is_checked = db.Column(db.Boolean, default=False)
 
 
 with app.app_context():
     db.create_all()
-    # user = User(username="abc", email="abc@eg.com", password="passpass", id=1)
-    # habit = Habit(name="example", created_by=1, id=1)
-    # db.session.add(user)
-    # db.session.add(habit)
-    # db.session.commit()
+    user = User(username="abc", email="abc@eg.com", password="passpass", id=1)
+    habit = Habit(name="example", created_by=1, id=1)
+    db.session.add(user)
+    db.session.add(habit)
+    db.session.commit()
